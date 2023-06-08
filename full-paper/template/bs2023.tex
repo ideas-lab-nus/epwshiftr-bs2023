@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template revision history:
+% BS2023: Revised by Yikun Yang, ian@tongji.edu.cn
+% BS2021: Revised by Filip Jorissen, filip.jorissen@kuleuven.be
+% BS2019: Revised by Alessandro Prada, alessandro.prada@unitn.it
+% BS2017: Initial version by Michael Wetter, mwetter@lbl.gov
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twocolumn, a4paper,10pt]{article}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm,
+columnsep=0.8cm]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{boxedminipage}
+\usepackage{nopageno}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage[font=it]{caption}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{newfloat}
+%-----------------------------SET SKIP SPACES -------------------------------------------------------------------
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+%\renewcommand{\baselinestretch}{0.7}
+% FOR enumerates
+\setlist{itemsep=-0.1cm,topsep=0.1cm,labelsep=0.3cm}
+\setenumerate{leftmargin=*}
+\setcounter{secnumdepth}{-1}
+%-----------------------------CODE FORMATTING -------------------------------------------------------------------
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlist[itemize]{leftmargin=*}
+% cross-reference code chunks
+% Reference: https://stackoverflow.com/questions/50702942/does-rmarkdown-allow-captions-and-references-for-code-chunks
+\usepackage{floatrow}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{mdframed}
+
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\floatsetup[table]{capposition=top}
+
+% add caption for codes
+\DeclareNewFloatType{Code}{placement=h, fileext=code, name=Listing}
+\captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
+\captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
+
+% add a custom float environment for listing in figure format
+\DeclareFloatingEnvironment[
+    fileext=los,
+    listname={List of Listings},
+    name=Listing,
+    placement=tbhp
+]{listing}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
+    commandchars=\\\{\},
+    fontsize=\scriptsize,
+    numbers=left,
+    numbersep=5pt
+}
+\newenvironment{Shaded}{\captionof{Code}{} \begin{mdframed}[skipabove=0pt]}{\end{mdframed}}
+\mdfsetup{%
+    innerleftmargin=3pt,
+    innerrightmargin=3pt,
+    innertopmargin=3pt,
+    innerbottommargin=3pt,
+    backgroundcolor=shadecolor
+}
+% adopted from pandoc
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+%-----------------------------SET FONTS -------------------------------------------------------------------
+% Set fonts for title, section and subsection headings
+\makeatletter
+\renewcommand\title[1]{\gdef\@title{\fontsize{12pt}{2pt}\bfseries{#1}}}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{3pt}{3pt}{\normalfont\large\bfseries}}
+% \normalfont\large
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{1}{\z@}{\z@}{\z@}{\normalfont\normalsize\bfseries}}
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{1}{\z@}{\z@}{0.1pt}{\normalfont\normalsize\bfseries}}
+\renewcommand\refname{References}
+%END OF THE SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%   TITLE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Please keep the \vspace{4pt} at the top
+\title{%
+$title$\\																								% Line 1
+%%% Please keep the \vspace{4pt} between lines in the title
+} 																																% Line 2
+%If there is no second line then just put \phantom{Line 2} here
+%%% Change or delete text before "\\" on the lines below to keep the layout but don't remove the "\\"
+%%% Do not exceed more than 6 lines for authors and affiliations
+\author{																																														% Line 3
+  $if(blind)$
+  \phantom{Line 4}\\
+  \phantom{Line 5}\\
+  \phantom{Line 6}\\
+  \phantom{Line 7}\\
+  \phantom{Line 8}\\
+  \phantom{Line 9}
+  $else$
+  $for(author)$ $author.name$\textsuperscript{$author.order$} $sep$, $endfor$\\
+  \parbox{\linewidth}{\centering%
+    $for(author)$ \textsuperscript{$author.order$}$author.affiliation$ $sep$\\$endfor$\\
+  }
+  \phantom{Line 9}
+  $endif$
+} 																																									% Line 9
+\date{\vspace{-0.5cm}}	% remove default date and replace the Blank 10th line														% Line 10
+%END OF THE TITLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}	% Section headings need to be upper and lower case.
+\addtocounter{section}{1}
+$abstract$
+
+$body$
+
+%here starts the references
+$if(bibliography)$
+\bibliography{$bibliography$}
+\bibliographystyle{template/bs2023}
+$endif$
+
+\end{document}
