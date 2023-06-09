@@ -165,10 +165,12 @@ Figure \@ref(fig:ssp).
 #| ssp,
 #| echo = FALSE,
 #| eval = TRUE,
+#| out.width = "0.7\\textwidth",
+#| fig.env = "figure*",
 #| fig.cap = "Scenario design matrix for future climate prediction based on SSP
 #|   and RCP in ScenarioMIP\\citep{oneill2016scenario}"
 
-knitr::include_graphics("figures/ssp.png")
+knitr::include_graphics("figures/ssp-hires.png")
 ```
 
 # `epwshiftr`: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data
@@ -206,9 +208,11 @@ generate EPW files for future weather. It consists of five modules, including:
 #| workflow,
 #| echo = FALSE,
 #| eval = TRUE,
+#| out.width = "0.7\\textwidth",
+#| fig.env = "figure*",
 #| fig.cap = "The primary process of using epwshiftr to generate EPW files for future weather"
 
-knitr::include_graphics("figures/workflow.png")
+knitr::include_graphics("figures/workflow-hires.png")
 ```
 
 With the generated future meteorological data, future building loads and energy
