@@ -69,7 +69,7 @@ Building energy simulation (BES) has become increasingly applied to assess
 building performance under climate change and yield a more sustainable and
 resilient design [@yassaghi2019overview]. Weather files form the boundary
 conditions of BES and directly affect the results [@bhandari2012evaluation].
-Therefore, it is necessary to use further weather data considering climate
+Therefore, it is necessary to use future weather data considering climate
 change for the design and performance evaluation of new and existing buildings
 [@picard2020robustness].
 
