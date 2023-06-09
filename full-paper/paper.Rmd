@@ -19,7 +19,7 @@ abstract: |
   Future weather data is a prerequisite for accessing the impacts of climate
   change on building energy performance. The Morphing statistical downscaling
   method, which utilizes the Global Climate Model (GCM) output, is a relatively
-  simple and reliable method for future weather data prediction and is widely
+  simple method for future weather data prediction and is widely
   used in current research/tools. However, existing weather generators typically
   assume a single GCM or can only consider GCMs from the old CMIP (Coupled Model
   Intercomparison Project) projects published more than ten years ago. This
@@ -53,6 +53,13 @@ knitr::opts_chunk$set(
   comment = "#>",
   out.width = "\\columnwidth"
 )
+
+hooks <- knitr::knit_hooks$get("source")
+knitr::knit_hooks$set(source = function(x, options) {
+  x <- hooks(x, options)
+  x <- ifelse(!is.null(options$code.ref), paste0("\\label{", options$code.ref, "}", x), x)
+  ifelse(!is.null(options$code.cap), paste0("\\captionof{code}{", options$code.cap, "}", x), x)
+})
 ```
 
 # Highlights
@@ -75,11 +82,21 @@ change for the design and performance evaluation of new and existing buildings
 
 A rich body of research and development exists on weather generators for
 creating future weather data for BES. In 2005, @belcher2005constructing proposed
-the morphing method, a relatively simple and reliable statistical downscaling
+the morphing method, a relatively simple statistical downscaling
 method. It is based on the future climate change data predicted by the Global
 Climate Model (GCM) and hourly weather data, usually a typical meteorological
 year (TMY). Morphing can capture the average future weather conditions from GCM
-while preserving historical weather sequences. Multiple future weather
+while preserving historical weather sequences. It requires low computational
+power, making it possible to create many weather files from worldwide locations.
+However, morphing may under- or overestimate climate change impacts because of
+the lacking of ability to capture future extreme weather conditions and
+potential differences in the reference time frame of the TMY and GCM data
+[@moazami2019impacts].
+Moreover, careful consideration should be given to morphing when modifying
+individual meteorological variables independently, breaking their physical
+relationships. Despite these shortcomings, this method is still widely used
+because of its simple and flexible characteristics.
+Multiple morphing-based future weather
 generators have been developed over the decades to integrate climate change
 predictions from CMIP (Coupled Model Intercomparison Project) projects that
 cover worldwide locations [@jentsch2008climate; @troup2016morphing;
@@ -93,7 +110,7 @@ scenario from the IPCC Third Assessment Report (TAR) published in 2001. Moreover
 it only utilizes data from a single GCM called HadCM3. Like CCWorldWeatherGen,
 WeatherShift and Meteonorm also use morphing to generate EPW files for future
 climate. They consider two representative concentration pathway (RCP) emission
-scenarios, i.e. RCP4.5 and RCP8.5, from the 2014 IPCC Fifth Climate Change
+scenarios, i.e., RCP4.5 and RCP8.5, from the 2014 IPCC Fifth Climate Change
 Assessment Report (AR5). At the same time, both are commercial products, and the
 weather data under a single climate scenario often cost hundreds of dollars.
 
@@ -117,7 +134,7 @@ Moreover, there are no easy-access tools for predicting future meteorological
 parameters based on the latest SSP emission scenarios.
 
 To this end, this paper proposes a future weather generation method for BES
-based on CMIP6 ScenarioMIP climate scenarios, and develops a a free and
+based on CMIP6 ScenarioMIP climate scenarios, and develops a free and
 open-source tool epwshiftr. It incorporates open data from the latest CMIP6
 project into EnergyPlus Weather (EPW) generation using the morphing method. The
 focus of this tool is to ease the burden of the cumbersome data preparation
@@ -169,7 +186,6 @@ Figure \@ref(fig:ssp).
 #| fig.env = "figure*",
 #| fig.cap = "Scenario design matrix for future climate prediction based on SSP
 #|   and RCP in ScenarioMIP\\citep{oneill2016scenario}"
-
 knitr::include_graphics("figures/ssp-hires.png")
 ```
 
@@ -183,10 +199,13 @@ open-source, and the source code is published on GitHub^[epwshiftr GitHub link:
 https://github.com/ideas-lab-nus/epwshiftr]. Epwshiftr can be easily installed
 via a single command as shown in Listing \ref{lst:install}.
 
-\begin{listing}
-\caption{Install epwshiftr}\label{lst:install}
-\includegraphics[width=\columnwidth]{figures/code-install.png}
-\end{listing}
+```{r}
+#| install,
+#| eval = FALSE,
+#| code.ref = "lst:install",
+#| code.cap = "Install epwshiftr"
+install.packages("epwshiftr")
+```
 
 Figure \@ref(fig:workflow) shows the primary process of using epwshiftr to
 generate EPW files for future weather. It consists of five modules, including:
@@ -211,9 +230,13 @@ generate EPW files for future weather. It consists of five modules, including:
 #| out.width = "0.7\\textwidth",
 #| fig.env = "figure*",
 #| fig.cap = "The primary process of using epwshiftr to generate EPW files for future weather"
-
 knitr::include_graphics("figures/workflow-hires.png")
 ```
+
+The epwshiftr package follows the Test-Driven Development (TDD) process. Around
+450 unit tests are carefully made, covering 94% of the codebase. They are
+automatically run on Windows, macOS, and Linux whenever changes are made in
+epwshiftr on CRAN and GitHub.
 
 With the generated future meteorological data, future building loads and energy
 demand under climate change can be predicted and evaluated. Many tools are
@@ -241,25 +264,53 @@ dozens of different GCMs, and the total size of all output files will get more
 than 10 TB, making it impossible to download all of them for analysis.
 
 The *Query Module* provides an interface utilizing the RESTful API provided by
-ESGF and thus is capable of querying all CMIP6 GCM outputs based on various
+ESGF. It thus is capable of querying all CMIP6 GCM outputs based on various
 conditions, providing download links of NetCDF files. The query result will be
 processed into a data frame that contains 22 metadata that describes each
-output. Also, an output index is generated based on the query and is used to
+output. Also, an output index is generated based on the query to
 check the data integrity before extracting climate change data.
 
-Listing 2 demonstrates how to use the `index_cmip6_index` interface from the
-*Query Module*.
+Listing \ref{lst:index} demonstrates how to use the `index_cmip6_index`
+interface from the *Query Module*.
 
 This snippet will send a query to ESGF to list all available daily outputs for
 near-surface air temperature (tas) and relative humidity (hurs) from
 AWI-CM-1-1-MR GCM first run (r1i1p1f1) under SSP585 climate scenario from the
-ScenarioMIP activity for year 2050 and 2080. Also an output index file named
-"cmip6_index.csv" will be saved.
+ScenarioMIP activity for the year 2050 and 2080. Also, an output index file
+named "cmip6_index.csv" will be saved.
 
-\begin{listing}
-\caption{Query ScenarioMIP outputs using the Query Module}\label{lst:index}
-\includegraphics[width=\columnwidth]{figures/code-index.png}
-\end{listing}
+```{r}
+#| lst-index,
+#| eval = FALSE,
+#| code.ref = "lst:index",
+#| code.cap = "Query ScenarioMIP outputs using the Query Module"
+# generate GCM output index
+idx <- init_cmip6_index(
+  # only consider ScenarioMIP activity
+  activity = "ScenarioMIP",
+
+  # output variables of interest
+  variable = c("tas", "hurs"),
+
+  # report frequency
+  frequency = "day",
+
+  # experiment name
+  experiment = "ssp585",
+
+  # GCM name
+  source = "AWI-CM-1-1-MR",
+
+  # variant,
+  variant = "r1i1p1f1",
+
+  # years of interest
+  years = c(2050, 2080),
+
+  # save result as an output index file
+  save = TRUE
+)
+```
 
 ## GCM raw output data management
 
@@ -275,7 +326,6 @@ massive data properly.
 #| fig.cap = "GCM outputs in NetCDF files for 11 variables from 10 GCMs under 4
 #|   climate scenarios from 2020 to 2100 take 2.81TB space with more than 13,000
 #|   files"
-
 knitr::include_graphics("figures/db.png")
 ```
 
@@ -284,14 +334,14 @@ specific global attributes, which can be used to describe the data stored in the
 file. Among them, 30 are mandatory and are included in every file. Therefore,
 the *Database Module* creates a mapping between the ESGF query output and each
 global attribute and manages the original big data of ScenarioMIP GCM climate
-change. Since the amount of data to extract from the global attributes in NetCDF
-is negligible compared to the total data volume of the time-series matrix, the
-computational load is small. It should be pointed out that CMIP6 does not
+change. The computational load is small since the amount of data to extract from
+the global attributes in NetCDF is negligible compared to the total data volume
+of the time-series matrix. It should be pointed out that CMIP6 does not
 require a specific calendar format for the time series GCM output. Various
-calendars exist, including the standard calendar, proleptic gregorian calendar,
+calendars exist, including the standard calendar, proleptic Gregorian calendar,
 365-day calendar, 366-day calendar, 360-day calendar, etc. Therefore, careful
 attention has been paid when converting the time range information obtained from
-ESGF and NetCDF files to ensure they are all transformed to the standard
+ESGF and NetCDF files to ensure they are all transformed into the standard
 calendar.
 
 To speed up the data verification process, the *Database Module* uses
@@ -302,13 +352,25 @@ other modules that perform computational-intensive procedures.
 Listing \ref{lst:db} demonstrates how to use the `suumary_database` interface from the
 Database Module to get a summary of NetCDF files downloaded against the CMIP6
 output index generated using the *Query Module.* This step is necessary as it maps
-the loaded files against index so that epwshiftr knows which case is complete
-and can be used for the next step.
+the loaded files against the index so that epwshiftr knows which case is
+complete and can be used for the next step.
 
-\begin{listing}
-\caption{Summarize the GCM NetCDF files based on the output index}\label{lst:db}
-\includegraphics[width=\columnwidth]{figures/code-db.png}
-\end{listing}
+```{r}
+#| lst-db,
+#| eval = FALSE,
+#| code.ref = "lst:db",
+#| code.cap = "Summarize the GCM NetCDF files based on the output index"
+sm <- summary_database(
+  # where all the NetCDF files are
+  dir = getOption("epwshiftr.dir"),
+
+  # criteria for calculating completeness
+  by = c("source", "variable"),
+
+  # what to do for duplications
+  mult = "latest"
+)
+```
 
 ## Extraction of raw climate change data based on geographic location
 
@@ -321,24 +383,19 @@ The spatial resolution is generally around 50km to 100 km, making obtaining
 accurate data of target locations challenging. In addition, the spacing of
 longitude and latitude in the global grid is usually different. Currently, no
 uniform standard method exists to calculate the distance between two points on a
-global grid. The common methods are: (a) Euler distance method, (b) Tunnel
-Distance method and (c) K-D tree algorithm. The Data Extraction Module uses the
+global grid. The common methods are: (a) the Euler distance method, (b) the Tunnel
+Distance method, and (c) the K-D tree algorithm. The Data Extraction Module uses the
 Euler distance method. Moreover, it also provides parameters to specify the
 distance threshold of longitude and latitude on the grid from the target
 position and the maximum number of grid points to match. Similarly, all data
 extraction processes are implemented in parallel to speed up.
 
-\begin{listing}
-\caption{Match the global grid points directly using an EPW file and extract raw GCM data}\label{lst:data}
-\includegraphics[width=\columnwidth]{figures/code-data.png}
-\end{listing}
-
 Listing \ref{lst:data} demonstrates how to use the `match_coord` interface from
 the *Data Extract Module* to extract all coordinates and data of grid points that
 meet the specified requirements, i.e., the maximum geographical distance between
-the matched grid points and selected location should be less than 0.5 degree,
-and only return the closest point. It also showcases the ability of directly
-using an EPW file as input for coordinate matching, as epwshiftr can parse the
+the matched grid points and selected location should be less than 0.5 degrees,
+and only return the closest point. It also showcases the ability to directly
+use an EPW file as input for coordinate matching, as epwshiftr can parse the
 geographical information stored in EPW files.
 
 The extracted raw data will be distinguished by six attributes: MIP, GCM,
@@ -346,12 +403,43 @@ climate scenario, output frequency, geographic location (longitude and latitude)
 and climate variables. This makes the post-processing and analysis of raw
 climate change data can be easily realized.
 
+```{r}
+#| lst-data,
+#| eval = FALSE,
+#| code.ref = "lst:data",
+#| code.cap = "Match the global grid points directly using an EPW file and
+#|   extract raw GCM data"
+# use weather file distributed from
+# EnergyPlus v8.8 as an example
+epw <- eplusr::path_eplus_weather(
+  ver = 8.8,
+  file = "USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw"
+)
+
+# extract matched grid coordinates
+coord <- match_coord(
+  epw,
+
+  # match distance less than 0.5 degrees
+  threshold = list(lon = 0.5, lat = 0.5),
+
+  # match at most 3 grid points
+  max_num = 3
+)
+
+# extract all data from matched grid points
+data <- extract_data(coord,
+  # specify the years to extract
+  years = c(2050, 2080)
+)
+```
+
 The size of the raw data extracted can be relatively big. For example, based on
 the authors' measurements, it takes about 20G memory to read the raw data of 12
 climate variables from 2020 to 2100 from 4 climate scenarios and 11 GCMs, which
-is often close to, if not greater than, a normal PC's memory. For this reason,
-epwshiftr supports storing the original data in the fst format [@mark2022fst]
-with a super large compression ratio, which greatly reduces the content burden
+is often close to, if not greater than, a typical PC's memory. For this reason,
+epwshiftr supports storing the original data in the *fst* format [@mark2022fst]
+with a super large compression ratio, greatly reducing the content burden
 required for calculation. Still taking the above situation as an example, if the
 data is divided by GCM, the size of a single fst file is only about 50MB, which
 can be easily read and processed by current mainstream home computers.
@@ -396,19 +484,75 @@ Epwshiftr can generate future data for the following 11 weather variables:
 * Total sky cover
 * Opaque sky cover
 
+To avoid unrealistic results, the *Morphing Module* has taken extra data
+validation and calculation steps, including but not limited to:
+
+* Warnings are generated if there are any missing values in the input EPW and
+  GCM data.
+* Unit conversions between data of EPW and GCM are automatically performed using
+  the units [@pebesma2016measurement] R package, e.g. all temperature data have
+  been converted to Celsius before calculation.
+* Calculation of dew point temperature is performed based on dry-bulb
+  temperature and relative humidity using the psychrolib [@meyer2019psychrolib]
+  R package.
+* Input values of relative humidity that exceed 100% will be reset to 100%.
+* A threshold value is set for the stretch factor ($\alpha$), i.e. monthly-mean
+  fractional change, when performing morphing operations. The default value is
+  set to `3`. If the absolute $\alpha$ exceeds this threshold value, warnings
+  are issued to suggest users further investigate the input data before
+  continuing. Moreover, the morphing method will use the shift factor ($\Delta x$)
+  to to avoid unrealistic morphed values.
+
+Besides the efforts above, the *Morphing Module* always returns the calculated
+$\Delta x$ and $\alpha$ values in dedicated columns, which provides
+opportunities for detailed examination and custom statistical analyses.
+
 At the same time, when generating EPW files, average processing can also be
 performed based on GCM, output frequency, longitude, latitude, etc.
 
 Listing \ref{lst:epw} demonstrates how to use the `morphing_epw` interface from
 the *Morphing Module* and the `future_epw` interface from the *EPW Generation
-Module* to perform morphing on the baseline EPW data and raw GCM data, and
+Module* to perform morphing on the baseline EPW data and raw GCM data and
 create future EPW files based on the GCM source, climate scenarios and time
-interval. All EPW files will be saved into a seprate folder.
+interval. All EPW files will be saved into a separate folder.
 
-\begin{listing}
-\caption{Perform morphing and generate future EPWs}\label{lst:epw}
-\includegraphics[width=\columnwidth]{figures/code-epw.png}
-\end{listing}
+```{r}
+#| lst-epw,
+#| eval = FALSE,
+#| code.ref = "lst:epw",
+#| code.cap = "Perform morphing and generate future EPWs"
+# perform morphing
+morphed <- morphing_epw(data,
+  # years of interest
+  years = c(2050, 2080)
+)
+
+# create future EPWs
+epws <- future_epw(
+  morphed,
+
+  # how to group the output files
+  by = c("source", "experiment", "interval"),
+
+  # where to save all generated EPWs
+  dir = tempdir(),
+
+  # create folders for each group
+  separate = TRUE,
+
+  # overwrite existing files
+  overwrite = TRUE
+)
+```
+
+Currently, epwshiftr only supports the morphing method. But the `morphing_epw`
+interface provides parameters to modify which factors should be used for each
+meteorological variable, with meaningful defaults value given. For example,
+radiation-related variables are, by default, morphed using the stretch factor,
+avoiding unrealistic positive values at nighttime. The modular design pattern of
+epwshiftr makes it decouple the data structure and the actual extrapolation
+algorithm used. We are happy to explore the feasibility of supporting
+alternative extrapolation algorithms in the future.
 
 # Conclusion
 
@@ -416,8 +560,9 @@ This paper presents a free, open-source R package called epwshiftr for adapting
 EnergyPlus Weather (EPW) files to incorporate climate change predictions using
 the morphing method. It can utilize the latest CMIP6 ScenarioMIP experiment data
 and automatically process significant amounts of climate change model data
-worldwide. This tool will significantly save the time and cost of obtaining
-future weather data and thus can support the analysis of future building heating
-and air-conditioning demand, energy consumption, and carbon emissions.
+worldwide. We hope this tool will significantly save the time and cost of
+obtaining future weather data. It thus can support the analysis of future
+building heating and air-conditioning demand, energy consumption, and carbon
+emissions.
 
 # References {-}

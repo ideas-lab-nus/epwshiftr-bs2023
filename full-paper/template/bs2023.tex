@@ -47,25 +47,17 @@ columnsep=0.8cm]{geometry}
 \floatsetup[table]{capposition=top}
 
 % add caption for codes
-\DeclareNewFloatType{Code}{placement=h, fileext=code, name=Listing}
-\captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
-\captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
-
-% add a custom float environment for listing in figure format
-\DeclareFloatingEnvironment[
-    fileext=los,
-    listname={List of Listings},
-    name=Listing,
-    placement=tbhp
-]{listing}
+\DeclareNewFloatType{code}{placement=h, fileext=code, name=Listing}
+\captionsetup[code]{aboveskip=10pt, belowskip=1pt}
 
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
     commandchars=\\\{\},
-    fontsize=\scriptsize,
+    fontsize=\normalsize,
     numbers=left,
     numbersep=5pt
 }
-\newenvironment{Shaded}{\captionof{Code}{} \begin{mdframed}[skipabove=0pt]}{\end{mdframed}}
+
+\newenvironment{Shaded}{\begin{mdframed}[skipabove=0pt]}{\end{mdframed}}
 \mdfsetup{%
     innerleftmargin=3pt,
     innerrightmargin=3pt,

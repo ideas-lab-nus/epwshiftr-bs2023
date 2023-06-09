@@ -121,6 +121,39 @@
   copyright = {AGPL-3.0}
 }
 
+@article{meyer2019psychrolib,
+  title = {{{PsychroLib}}: A Library of Psychrometric Functions to Calculate Thermodynamic Properties of Air},
+  shorttitle = {{{PsychroLib}}},
+  author = {Meyer, D. and Thevenard, D.},
+  year = {2019},
+  month = jan,
+  journal = {Journal of Open Source Software},
+  volume = {4},
+  number = {33},
+  pages = {1137},
+  issn = {2475-9066},
+  doi = {10.21105/joss.01137},
+  urldate = {2023-06-09},
+  abstract = {The estimation of psychrometric properties of air is critical in several engineering and scientific applications such as heating, ventilation, and air conditioning (HVAC) and meteorology. Although formulae to calculate the psychrometric properties of air are widely available in the literature (Dilley, 1968; Humphreys, 1920; Stoecker \& Jones, 1982; Stull, 2011; Wexler, Hyland, Stewart, \& American Society of Heating, Refrigerating and AirConditioning Engineers, 1983), their implementation in computer programs or spreadsheets can be challenging and time consuming. To our knowledge, only few numerical implementations of such formulae are freely available as standalone software libraries for programming languages and spreadsheets used in science and engineering.},
+  langid = {english}
+}
+
+@article{moazami2019impacts,
+  title = {Impacts of Future Weather Data Typology on Building Energy Performance \textendash{} {{Investigating}} Long-Term Patterns of Climate Change and Extreme Weather Conditions},
+  author = {Moazami, Amin and Nik, Vahid M. and Carlucci, Salvatore and Geving, Stig},
+  year = {2019},
+  month = mar,
+  journal = {Applied Energy},
+  volume = {238},
+  pages = {696--720},
+  issn = {0306-2619},
+  doi = {10.1016/j.apenergy.2019.01.085},
+  urldate = {2023-06-09},
+  abstract = {Patterns of future climate and expected extreme conditions are pushing design limits as recognition of climate change and its implication for the built environment increases. There are a number of ways of estimating future climate projections and creating weather files. Obtaining adequate representation of long-term patterns of climate change and extreme conditions is, however, challenging. This work aims at answering two research questions: does a method of generating future weather files for building performance simulation bring advantages that cannot be provided by other methods? And what type of future weather files enable building engineers and designers to more credibly test robustness of their designs against climate change? To answer these two questions, the work provides an overview of the major approaches to create future weather data sets based on the statistical and dynamical downscaling of climate models. A number of weather data sets for Geneva were synthesized and applied to the energy simulation of 16 ASHRAE standard reference buildings, single buildings and their combination to create a virtual neighborhood. Representative weather files are synthesized to account for extreme conditions together with typical climate conditions and investigate their importance in the energy performance of buildings. According to the results, all the methods provide enough information to study the long-term impacts of climate change on average. However, the results also revealed that assessing the energy robustness of buildings only under typical future conditions is not sufficient. Depending on the type of building, the relative change of peak load for cooling demand under near future extreme conditions can still be up to 28.5\% higher compared to typical conditions. It is concluded that only those weather files generated based on dynamical downscaling and that take into consideration both typical and extreme conditions are the most reliable for providing representative boundary conditions to test the energy robustness of buildings under future climate uncertainties. The results for the neighborhood explaining the critical situation that an energy network may face due to increased peak load under extreme climatic conditions. Such critical situations remain unforeseeable by relying solely on typical and observed extreme conditions, putting the climate resilience of buildings and energy systems at risk.},
+  langid = {english},
+  keywords = {Building performance simulation,Climate change,Climate uncertainty,Future weather files,Statistical and dynamical downscaling of climate models,Typical and extreme weather conditions}
+}
+
 @article{oneill2016scenario,
   title = {The {{Scenario Model Intercomparison Project}} ({{ScenarioMIP}}) for {{CMIP6}}},
   author = {O'Neill, Brian C. and Tebaldi, Claudia and van Vuuren, Detlef P. and Eyring, Veronika and Friedlingstein, Pierre and Hurtt, George and Knutti, Reto and Kriegler, Elmar and Lamarque, Jean-Francois and Lowe, Jason and Meehl, Gerald A. and Moss, Richard and Riahi, Keywan and Sanderson, Benjamin M.},
@@ -136,6 +169,21 @@
   abstract = {{$<$}p{$><$}strong{$>$}Abstract.{$<$}/strong{$>$} Projections of future climate change play a fundamental role in improving understanding of the climate system as well as characterizing societal risks and response options. The Scenario Model Intercomparison Project (ScenarioMIP) is the primary activity within Phase 6 of the Coupled Model Intercomparison Project (CMIP6) that will provide multi-model climate projections based on alternative scenarios of future emissions and land use changes produced with integrated assessment models. In this paper, we describe ScenarioMIP's objectives, experimental design, and its relation to other activities within CMIP6. The ScenarioMIP design is one component of a larger scenario process that aims to facilitate a wide range of integrated studies across the climate science, integrated assessment modeling, and impacts, adaptation, and vulnerability communities, and will form an important part of the evidence base in the forthcoming Intergovernmental Panel on Climate Change (IPCC) assessments. At the same time, it will provide the basis for investigating a number of targeted science and policy questions that are especially relevant to scenario-based analysis, including the role of specific forcings such as land use and aerosols, the effect of a peak and decline in forcing, the consequences of scenarios that limit warming to below 2 \textdegree C, the relative contributions to uncertainty from scenarios, climate models, and internal variability, and long-term climate system outcomes beyond the 21st century. To serve this wide range of scientific communities and address these questions, a design has been identified consisting of eight alternative 21st century scenarios plus one large initial condition ensemble and a set of long-term extensions, divided into two tiers defined by relative priority. Some of these scenarios will also provide a basis for variants planned to be run in other CMIP6-Endorsed MIPs to investigate questions related to specific forcings. Harmonized, spatially explicit emissions and land use scenarios generated with integrated assessment models will be provided to participating climate modeling groups by late 2016, with the climate model simulations run within the 2017\textendash 2018 time frame, and output from the climate model projections made available and analyses performed over the 2018\textendash 2020 period.{$<$}/p{$>$}},
   langid = {english},
   annotation = {JCR分区: Q1 中科院分区升级版: 地球科学2区 影响因子: 6.89}
+}
+
+@article{pebesma2016measurement,
+  title = {Measurement {{Units}} in {{R}}},
+  author = {Pebesma, Edzer and Mailund, Thomas and Hiebert, James},
+  year = {2016},
+  journal = {The R Journal},
+  volume = {8},
+  number = {2},
+  pages = {486},
+  issn = {2073-4859},
+  doi = {10.32614/RJ-2016-061},
+  urldate = {2023-06-09},
+  abstract = {We briefly review SI units, and discuss R packages that deal with measurement units, their compatibility and conversion. Built upon udunits2 and the UNIDATA udunits library, we introduce the package units that provides a class for maintaining unit metadata. When used in expression, it automatically converts units, and simplifies units of results when possible; in case of incompatible units, errors are raised. The class flexibly allows expansion beyond predefined units. Using units may eliminate a whole class of potential scientific programming mistakes. We discuss the potential and limitations of computing with explicit units.},
+  langid = {english}
 }
 
 @article{picard2020robustness,
