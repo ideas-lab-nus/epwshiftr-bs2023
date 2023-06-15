@@ -1,0 +1,891 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL full-paper/paper-oldtmp-24800.tex   Thu Jun 15 14:41:47 2023
+%DIF ADD full-paper/paper-newtmp-24800.tex   Thu Jun 15 14:21:39 2023
+% Template revision history:
+% BS2023: Revised by Yikun Yang, ian@tongji.edu.cn
+% BS2021: Revised by Filip Jorissen, filip.jorissen@kuleuven.be
+% BS2019: Revised by Alessandro Prada, alessandro.prada@unitn.it
+% BS2017: Initial version by Michael Wetter, mwetter@lbl.gov
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twocolumn, a4paper,10pt]{article}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.0cm, right=2.0cm,
+columnsep=0.8cm]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{boxedminipage}
+\usepackage{nopageno}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage[font=it]{caption}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{newfloat}
+%-----------------------------SET SKIP SPACES -------------------------------------------------------------------
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+%\renewcommand{\baselinestretch}{0.7}
+% FOR enumerates
+\setlist{itemsep=-0.1cm,topsep=0.1cm,labelsep=0.3cm}
+\setenumerate{leftmargin=*}
+\setcounter{secnumdepth}{-1}
+%-----------------------------CODE FORMATTING -------------------------------------------------------------------
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlist[itemize]{leftmargin=*}
+% cross-reference code chunks
+% Reference: https://stackoverflow.com/questions/50702942/does-rmarkdown-allow-captions-and-references-for-code-chunks
+\usepackage{floatrow}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{mdframed}
+
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\floatsetup[table]{capposition=top}
+
+% add caption for codes
+%DIF 50-52c50-51
+%DIF < \DeclareNewFloatType{Code}{placement=h, fileext=code, name=Listing}
+%DIF < \captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
+%DIF < \captionsetup[Code]{aboveskip=10pt, belowskip=1pt}
+%DIF -------
+\DeclareNewFloatType{code}{placement=h, fileext=code, name=Listing} %DIF > 
+\captionsetup[code]{aboveskip=10pt, belowskip=1pt} %DIF > 
+%DIF -------
+
+%DIF 54-61d53
+%DIF < % add a custom float environment for listing in figure format
+%DIF < \DeclareFloatingEnvironment[
+%DIF <     fileext=los,
+%DIF <     listname={List of Listings},
+%DIF <     name=Listing,
+%DIF <     placement=tbhp
+%DIF < ]{listing}
+%DIF < 
+%DIF -------
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
+    commandchars=\\\{\},
+%DIF 64c55
+%DIF <     fontsize=\scriptsize,
+%DIF -------
+    fontsize=\normalsize, %DIF > 
+%DIF -------
+    numbers=left,
+    numbersep=5pt
+}
+%DIF 68c59-60
+%DIF < \newenvironment{Shaded}{\captionof{Code}{} \begin{mdframed}[skipabove=0pt]}{\end{mdframed}}
+%DIF -------
+ %DIF > 
+\newenvironment{Shaded}{\begin{mdframed}[skipabove=0pt]}{\end{mdframed}} %DIF > 
+%DIF -------
+\mdfsetup{%
+    innerleftmargin=3pt,
+    innerrightmargin=3pt,
+    innertopmargin=3pt,
+    innerbottommargin=3pt,
+    backgroundcolor=shadecolor
+}
+% adopted from pandoc
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+%-----------------------------SET FONTS -------------------------------------------------------------------
+% Set fonts for title, section and subsection headings
+\makeatletter
+\renewcommand\title[1]{\gdef\@title{\fontsize{12pt}{2pt}\bfseries{#1}}}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{3pt}{3pt}{\normalfont\large\bfseries}}
+% \normalfont\large
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{1}{\z@}{\z@}{\z@}{\normalfont\normalsize\bfseries}}
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{1}{\z@}{\z@}{0.1pt}{\normalfont\normalsize\bfseries}}
+\renewcommand\refname{References}
+%END OF THE SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%   TITLE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Please keep the \vspace{4pt} at the top
+\title{%
+Epwshiftr: incorporating open data of climate change prediction into
+\vspace{4pt}
+building performance simulation for future adaptation and mitigation\\																								% Line 1
+%%% Please keep the \vspace{4pt} between lines in the title
+} 																																% Line 2
+%If there is no second line then just put \phantom{Line 2} here
+%%% Change or delete text before "\\" on the lines below to keep the layout but don't remove the "\\"
+%%% Do not exceed more than 6 lines for authors and affiliations
+\author{																																														% Line 3
+    \phantom{Line 4}\\
+  \phantom{Line 5}\\
+  \phantom{Line 6}\\
+  \phantom{Line 7}\\
+  \phantom{Line 8}\\
+  \phantom{Line 9}
+  } 																																									% Line 9
+\date{\vspace{-0.5cm}}	% remove default date and replace the Blank 10th line														% Line 10
+%END OF THE TITLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}	% Section headings need to be upper and lower case.
+\addtocounter{section}{1}
+Future weather data is a prerequisite for accessing the impacts of climate
+change on building energy performance. The Morphing statistical downscaling
+method, which utilizes the Global Climate Model (GCM) output, is a relatively
+simple \DIFdelbegin \DIFdel{and reliable }\DIFdelend method for future weather data prediction and is widely
+used in current research/tools. However, existing weather generators typically
+assume a single GCM or can only consider GCMs from the old CMIP (Coupled Model
+Intercomparison Project) projects published more than ten years ago. This
+paper presents a free, open-source tool called epwshiftr for incorporating
+open data from the latest CMIP6 project into EnergyPlus Weather (EPW)
+generation using the Morphing method. The focus of this tool is to ease the
+burden of the cumbersome data preparation process as much as possible while
+providing user-friendly and flexible ways to create future EPWs for worldwide
+locations.
+
+\hypertarget{highlights}{%
+\section{Highlights}\label{highlights}}
+
+\begin{itemize}
+\tightlist
+\item
+  A free open-source future weather generator \texttt{epwshiftr} was developed.
+\item
+  It utilizes the latest CMIP6 ScenarioMIP experiment data
+\item
+  It can automatically process significant amounts of climate change model data
+  worldwide.
+\item
+  It can generate future weather data for 11 meteorological variables.
+\end{itemize}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Building energy simulation (BES) has become increasingly applied to assess
+building performance under climate change and yield a more sustainable and
+resilient design \citep{yassaghi2019overview}. Weather files form the boundary
+conditions of BES and directly affect the results \citep{bhandari2012evaluation}.
+Therefore, it is necessary to use \DIFdelbegin \DIFdel{further }\DIFdelend \DIFaddbegin \DIFadd{future }\DIFaddend weather data considering climate
+change for the design and performance evaluation of new and existing buildings
+\citep{picard2020robustness}.
+
+A rich body of research and development exists on weather generators for
+creating future weather data for BES. In 2005, \citet{belcher2005constructing} proposed
+the morphing method, a relatively simple \DIFdelbegin \DIFdel{and reliable }\DIFdelend statistical downscaling
+method. It is based on the future climate change data predicted by the Global
+Climate Model (GCM) and hourly weather data, usually a typical meteorological
+year (TMY). Morphing can capture the average future weather conditions from GCM
+while preserving historical weather sequences. \DIFdelbegin \DIFdel{Multiple }\DIFdelend \DIFaddbegin \DIFadd{It requires low computational
+power, making it possible to create many weather files from worldwide locations.
+However, morphing may under- or overestimate climate change impacts because of
+the lacking of ability to capture future extreme weather conditions and
+potential differences in the reference time frame of the TMY and GCM data
+\mbox{%DIFAUXCMD
+\citep{moazami2019impacts}}\hskip0pt%DIFAUXCMD
+.
+Moreover, careful consideration should be given to morphing when modifying
+individual meteorological variables independently, breaking their physical
+relationships. Despite these shortcomings, this method is still widely used
+because of its simple and flexible characteristics.
+Multiple morphing-based }\DIFaddend future weather
+generators have been developed over the decades to integrate climate change
+predictions from CMIP (Coupled Model Intercomparison Project) projects that
+cover worldwide locations \citep{jentsch2008climate, troup2016morphing, dickinson2016generating, yassaghi2019overview}. Currently,
+CCWorldWeatherGen\citep{jentsch2013transforming}, WeatherShift
+\citep{dickinson2016generating}, and Meteonorm \citep{remund2020meteonorm} are three
+future weather generators widely used in literature. CCWorldWeatherGen provides
+a graphical interface based on Microsoft Excel to generate weather files in EPW
+format supported by EnergyPlus directly. However, it is based on the A2 climate
+scenario from the IPCC Third Assessment Report (TAR) published in 2001. Moreover,
+it only utilizes data from a single GCM called HadCM3. Like CCWorldWeatherGen,
+WeatherShift and Meteonorm also use morphing to generate EPW files for future
+climate. They consider two representative concentration pathway (RCP) emission
+scenarios, i.e.\DIFdelbegin \DIFdel{~}\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend RCP4.5 and RCP8.5, from the 2014 IPCC Fifth Climate Change
+Assessment Report (AR5). At the same time, both are commercial products, and the
+weather data under a single climate scenario often cost hundreds of dollars.
+
+Currently, the CMIP project is in its sixth phase (CMIP6), which has developed
+new emission scenarios that have a similar range as the CMIP5, but fill critical
+gaps for intermediate forcing levels \citep{oneill2016scenario}. IPCC
+(Intergovernmental Panel on Climate Change) released the sixth climate
+assessment report (AR6) based on CMIP6. It is based on the latest Shared
+Socio-economic Pathway (SSP) climate change projections proposed by the CMIP6
+ScenarioMIP experiment results.
+
+Compared with the representative concentration pathway (RCP) scenarios in IPCC
+AR5, the new scenarios based on SSP consider the impact of changes in
+socio-economic factors on climate change, such as population, economic growth,
+education, urbanization, etc \citep{chakraborty2021scenariobased}. Therefore,
+existing research using outdated IPCC emission scenarios may not reasonably and
+effectively represent the climate impacts and socio-economic risks of different
+policy options.
+
+Moreover, there are no easy-access tools for predicting future meteorological
+parameters based on the latest SSP emission scenarios.
+
+To this end, this paper proposes a future weather generation method for BES
+based on CMIP6 ScenarioMIP climate scenarios, and develops a \DIFdelbegin \DIFdel{a }\DIFdelend free and
+open-source tool epwshiftr. It incorporates open data from the latest CMIP6
+project into EnergyPlus Weather (EPW) generation using the morphing method. The
+focus of this tool is to ease the burden of the cumbersome data preparation
+process as much as possible while providing user-friendly and flexible ways to
+create future EPWs for worldwide locations. It takes full advantage of data
+query and fetching interfaces provided by the Earth System Grid Federation (ESGF)
+portals where CMIP6 data are held. Epwshiftr can process multiple GCM outputs at
+various spatial and temporal resolutions. Each module of epwshiftr stores data
+in a standard data format, providing possibilities for exploring a considerably
+broad pool of ready-to-use methods available for customized statistical
+analysis. Most computational-intensive processes have been designed to run in
+parallel for speed-up.
+
+\hypertarget{climate-scenarios-in-cmip6-scenariomip}{%
+\section{Climate scenarios in CMIP6 ScenarioMIP}\label{climate-scenarios-in-cmip6-scenariomip}}
+
+CMIP6 provides climate change simulation and forecast data and forms the
+scientific basis of the IPCC assessment report. It approved 23 Model Comparison
+Sub-Projects (MIPs). ScenarioMIP, one of those MIPs, aims to provide critical
+data support for future climate change mechanism studies and corresponding
+mitigation and adaptation research. The new climate projection scenarios
+proposed by ScenarioMIP are rectangular combinations of different Shared
+Socio-economic Pathways (SSPs) and the latest Representative Concentration
+Pathways (RCPs):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  SSP is used to describe the possible development scenarios of the future
+  society without the influence of climate change or climate policy (CMIP6,
+  2014). There are five SSP scenarios in ScenarioMIP, namely SSP1, SSP2, SSP3,
+  SSP4, and SSP5, arranged in order of social development from good to bad,
+  representing sustainable, moderate, partial, unbalanced, and normal
+  development, respectively.
+\item
+  RCP represents the level of global radiative forcing, i.e., the amount of
+  change in the net irradiance of the tropopause or the top of the atmosphere
+  due to climate change until the end of this century. Based on the four
+  radiative forcing levels in the CMIP5 RCP, ScenarioMIP added three new
+  emission pathways, namely RCP2.6, RCP3.4, and RCP7.0, filling the gaps
+  between the typical pathways of CMIP6 \citep{oneill2016scenario}.
+\end{enumerate}
+
+ScenarioMIP combines the above five SSP scenarios and seven RCPs to form eight
+groups of future climate scenarios. They are grouped into Tier-1 and Tier-2
+based on the modeling priority, with Tier-1 being the core test, as shown in
+Figure \ref{fig:ssp}.
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=\columnwidth]{figures/ssp} %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure*}
+\includegraphics[width=0.7\textwidth]{figures/ssp-hires} \DIFaddendFL \caption{Scenario design matrix for future climate prediction based on SSP  and RCP in ScenarioMIP\citep{oneill2016scenario}}\label{fig:ssp}
+\DIFdelbeginFL %DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \end{figure*}
+\DIFaddend 
+
+\hypertarget{epwshiftr-a-free-open-source-future-weather-generation-tool-using-cmip6-scenariomip-data}{%
+\section{\texorpdfstring{\texttt{epwshiftr}: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}{epwshiftr: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}}\label{epwshiftr-a-free-open-source-future-weather-generation-tool-using-cmip6-scenariomip-data}}
+
+Epwshiftr is developed using R \citep{RCoreTeam2019} language and distributed
+using CRAN (Comprehensive R Archive Network)\footnote{epwshiftr CRAN link:
+  \url{https://cran.r-project.org/package=epwshiftr}}. It can be downloaded for free
+and run on common platforms, including Windows, macOS, and Linux. Epwshiftr is
+open-source, and the source code is published on GitHub\footnote{epwshiftr GitHub link:
+  \url{https://github.com/ideas-lab-nus/epwshiftr}}. Epwshiftr can be easily installed
+via a single command as shown in Listing \ref{lst:install}.
+
+\DIFdelbegin %DIFDELCMD < \begin{listing}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Install epwshiftr}}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \captionof{code}{Install epwshiftr}\DIFaddend \label{lst:install}
+\DIFdelbegin %DIFDELCMD < \includegraphics[width=\columnwidth]{figures/code-install.png}
+%DIFDELCMD < \end{listing}
+%DIFDELCMD < %%%
+\DIFdelend 
+
+\DIFaddbegin \begin{Shaded}
+\begin{Highlighting}[]
+\DIFadd{\FunctionTok{install.packages}\NormalTok{(}\StringTok{"epwshiftr"}\NormalTok{)}
+}\end{Highlighting}
+\end{Shaded}
+
+\DIFaddend Figure \ref{fig:workflow} shows the primary process of using epwshiftr to
+generate EPW files for future weather. It consists of five modules, including:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\emph{Query Module}}, which sends queries of the CMIP6 ScenarioMIP output using
+  the Earth System Grid Federation (ESGF) portals;
+\item
+  \textbf{\emph{Database Module}}, which is used to manage the massive raw climate change data
+  of ScenarioMIP GCMs;
+\item
+  \textbf{\emph{Data Extraction Module}}, which can extract climate change raw data based on
+  geographic location information;
+\item
+  \textbf{\emph{Morphing Module}}, which uses the morphing statistical downscaling method to
+  calculate the predicted values of each meteorological variable at different
+  future time periods and under different climate forecast scenarios;
+\item
+  \textbf{\emph{EPW Generation Module}}, which uses the forecast data to generate EPW files
+  under future climate change, based on the mapping between EPW weather
+  variables and GCM output meteorological variables.
+\end{itemize}
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=\columnwidth]{figures/workflow} %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure*}
+\includegraphics[width=0.7\textwidth]{figures/workflow-hires} \DIFaddendFL \caption{The primary process of using epwshiftr to generate EPW files for future weather}\label{fig:workflow}
+\DIFdelbeginFL %DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \end{figure*}
+\DIFaddend 
+
+\DIFaddbegin \DIFadd{The epwshiftr package follows the Test-Driven Development (TDD) process. Around
+450 unit tests are carefully made, covering 94\% of the codebase. They are
+automatically run on Windows, macOS, and Linux whenever changes are made in
+epwshiftr on CRAN and GitHub.
+}
+
+\DIFaddend With the generated future meteorological data, future building loads and energy
+demand under climate change can be predicted and evaluated. Many tools are
+currently available to perform parametric BES. Eplusr \citep{jia2021eplusr}, a rich
+toolset for BES data-driven analyses, is one of them and can be integrated well
+with epwshiftr. Evaluation of future building energy demand using generated
+future weather data is not the focus of this paper. The following sections will
+explain the implementation principle and technical details of epwshiftr by
+module.
+
+\hypertarget{query-scenariomip-gcm-output-using-esgf}{%
+\subsection{Query ScenarioMIP GCM output using ESGF}\label{query-scenariomip-gcm-output-using-esgf}}
+
+CMIP6 is still an ongoing program in which global climatologists share, analyze,
+and compare simulation results from the latest GCMs. All GCM outputs in CMIP6
+are available for free download through the Earth System Grid Federation (ESGF).
+ESGF provides GCM outputs in NetCDF format, a widely-used format in the earth
+science domain. It divides the data based on climate variables, output
+frequencies, GCMs, variant labels, earth grid types, time ranges, and other
+dimensions.
+
+Since each NetCDF file contains data of a complete global grid, the size of the
+monthly global surface temperature forecast data for the next 20 years under a
+single climate scenario can reach more than 1 GB. The CMIP6 ScenarioMIP contains
+dozens of different GCMs, and the total size of all output files will get more
+than 10 TB, making it impossible to download all of them for analysis.
+
+The \emph{Query Module} provides an interface utilizing the RESTful API provided by
+ESGF\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{. It }\DIFaddend thus is capable of querying all CMIP6 GCM outputs based on various
+conditions, providing download links of NetCDF files. The query result will be
+processed into a data frame that contains 22 metadata that describes each
+output. Also, an output index is generated based on the query \DIFdelbegin \DIFdel{and is used }\DIFdelend to
+check the data integrity before extracting climate change data.
+
+Listing \DIFdelbegin \DIFdel{2 }\DIFdelend \DIFaddbegin \DIFadd{\ref{lst:index} }\DIFaddend demonstrates how to use the \texttt{index\_cmip6\_index}
+interface from the \emph{Query Module}.
+
+This snippet will send a query to ESGF to list all available daily outputs for
+near-surface air temperature (tas) and relative humidity (hurs) from
+AWI-CM-1-1-MR GCM first run (r1i1p1f1) under SSP585 climate scenario from the
+ScenarioMIP activity for \DIFaddbegin \DIFadd{the }\DIFaddend year 2050 and 2080. Also\DIFaddbegin \DIFadd{, }\DIFaddend an output index file
+named ``cmip6\_index.csv'' will be saved.
+
+\DIFdelbegin %DIFDELCMD < \begin{listing}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Query ScenarioMIP outputs using the Query Module}}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \captionof{code}{Query ScenarioMIP outputs using the Query Module}\DIFaddend \label{lst:index}
+\DIFdelbegin %DIFDELCMD < \includegraphics[width=\columnwidth]{figures/code-index.png}
+%DIFDELCMD < \end{listing}
+%DIFDELCMD < %%%
+\DIFdelend 
+
+\DIFaddbegin \begin{Shaded}
+\begin{Highlighting}[]
+\DIFadd{\CommentTok{\# generate GCM output index}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{init\_cmip6\_index}\NormalTok{(}
+  \CommentTok{\# only consider ScenarioMIP activity}
+  \AttributeTok{activity =} \StringTok{"ScenarioMIP"}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# output variables of interest}
+  \AttributeTok{variable =} \FunctionTok{c}\NormalTok{(}\StringTok{"tas"}\NormalTok{, }\StringTok{"hurs"}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# report frequency}
+  \AttributeTok{frequency =} \StringTok{"day"}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# experiment name}
+  \AttributeTok{experiment =} \StringTok{"ssp585"}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# GCM name}
+  \AttributeTok{source =} \StringTok{"AWI{-}CM{-}1{-}1{-}MR"}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# variant,}
+  \AttributeTok{variant =} \StringTok{"r1i1p1f1"}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# years of interest}
+  \AttributeTok{years =} \FunctionTok{c}\NormalTok{(}\DecValTok{2050}\NormalTok{, }\DecValTok{2080}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# save result as an output index file}
+  \AttributeTok{save =} \ConstantTok{TRUE}
+\NormalTok{)}
+}\end{Highlighting}
+\end{Shaded}
+
+\DIFaddend \hypertarget{gcm-raw-output-data-management}{%
+\subsection{GCM raw output data management}\label{gcm-raw-output-data-management}}
+
+As mentioned above, the size of NetCDF files can easily reach hundreds of GB or
+even TB levels for multiple combinations of emission scenarios and GCMs, as
+shown in Figure \ref{fig:db}. Therefore, it becomes cumbersome to manage such
+massive data properly.
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{figures/db} \caption{GCM outputs in NetCDF files for 11 variables from 10 GCMs under 4  climate scenarios from 2020 to 2100 take 2.81TB space with more than 13,000  files}\label{fig:db}
+\end{figure}
+
+Fortunately, CMIP6 requires each NetCDF file generated by GCM to contain
+specific global attributes, which can be used to describe the data stored in the
+file. Among them, 30 are mandatory and are included in every file. Therefore,
+the \emph{Database Module} creates a mapping between the ESGF query output and each
+global attribute and manages the original big data of ScenarioMIP GCM climate
+change. \DIFdelbegin \DIFdel{Since }\DIFdelend \DIFaddbegin \DIFadd{The computational load is small since }\DIFaddend the amount of data to extract from
+the global attributes in NetCDF is negligible compared to the total data volume
+of the time-series matrix\DIFdelbegin \DIFdel{, the
+computational load is small}\DIFdelend . It should be pointed out that CMIP6 does not
+require a specific calendar format for the time series GCM output. Various
+calendars exist, including the standard calendar, proleptic \DIFdelbegin \DIFdel{gregorian }\DIFdelend \DIFaddbegin \DIFadd{Gregorian }\DIFaddend calendar,
+365-day calendar, 366-day calendar, 360-day calendar, etc. Therefore, careful
+attention has been paid when converting the time range information obtained from
+ESGF and NetCDF files to ensure they are all transformed \DIFdelbegin \DIFdel{to }\DIFdelend \DIFaddbegin \DIFadd{into }\DIFaddend the standard
+calendar.
+
+To speed up the data verification process, the \emph{Database Module} uses
+asynchronous parallel computing to extract and verify attributes of multiple
+NetCDF files simultaneously. This parallel computing is also applied to all
+other modules that perform computational-intensive procedures.
+
+Listing \ref{lst:db} demonstrates how to use the \texttt{suumary\_database} interface from the
+Database Module to get a summary of NetCDF files downloaded against the CMIP6
+output index generated using the \emph{Query Module.} This step is necessary as it maps
+the loaded files against \DIFaddbegin \DIFadd{the }\DIFaddend index so that epwshiftr knows which case is
+complete and can be used for the next step.
+
+\DIFdelbegin %DIFDELCMD < \begin{listing}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Summarize the GCM NetCDF files based on the output index}}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \captionof{code}{Summarize the GCM NetCDF files based on the output index}\DIFaddend \label{lst:db}
+\DIFdelbegin %DIFDELCMD < \includegraphics[width=\columnwidth]{figures/code-db.png}
+%DIFDELCMD < \end{listing}
+%DIFDELCMD < %%%
+\DIFdelend 
+
+\DIFaddbegin \begin{Shaded}
+\begin{Highlighting}[]
+\DIFadd{\NormalTok{sm }\OtherTok{\textless{}{-}} \FunctionTok{summary\_database}\NormalTok{(}
+  \CommentTok{\# where all the NetCDF files are}
+  \AttributeTok{dir =} \FunctionTok{getOption}\NormalTok{(}\StringTok{"epwshiftr.dir"}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# criteria for calculating completeness}
+  \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"source"}\NormalTok{, }\StringTok{"variable"}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# what to do for duplications}
+  \AttributeTok{mult =} \StringTok{"latest"}
+\NormalTok{)}
+}\end{Highlighting}
+\end{Shaded}
+
+\DIFaddend \hypertarget{extraction-of-raw-climate-change-data-based-on-geographic-location}{%
+\subsection{Extraction of raw climate change data based on geographic location}\label{extraction-of-raw-climate-change-data-based-on-geographic-location}}
+
+When the integrity check has been passed, the next step is to extract the raw
+time-series data from GCM NetCDF output files. NetCDF stores data as a
+three-dimensional time, longitude, and latitude matrix. Therefore, the data can
+be extracted through the target location's geographic location information
+(latitude and longitude). However, the global grid from GCMs is often coarse.
+The spatial resolution is generally around 50km to 100 km, making obtaining
+accurate data of target locations challenging. In addition, the spacing of
+longitude and latitude in the global grid is usually different. Currently, no
+uniform standard method exists to calculate the distance between two points on a
+global grid. The common methods are: (a) \DIFaddbegin \DIFadd{the }\DIFaddend Euler distance method, (b) \DIFaddbegin \DIFadd{the }\DIFaddend Tunnel
+Distance method\DIFaddbegin \DIFadd{, }\DIFaddend and (c) \DIFaddbegin \DIFadd{the }\DIFaddend K-D tree algorithm. The Data Extraction Module uses the
+Euler distance method. Moreover, it also provides parameters to specify the
+distance threshold of longitude and latitude on the grid from the target
+position and the maximum number of grid points to match. Similarly, all data
+extraction processes are implemented in parallel to speed up.
+
+\DIFdelbegin %DIFDELCMD < \begin{listing}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Match the global grid points directly using an EPW file and extract raw GCM data}}%DIFAUXCMD
+%DIFDELCMD < \label{lst:data}
+%DIFDELCMD < \includegraphics[width=\columnwidth]{figures/code-data.png}
+%DIFDELCMD < \end{listing}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend Listing \ref{lst:data} demonstrates how to use the \texttt{match\_coord} interface from
+the \emph{Data Extract Module} to extract all coordinates and data of grid points that
+meet the specified requirements, i.e., the maximum geographical distance between
+the matched grid points and selected location should be less than 0.5 \DIFdelbegin \DIFdel{degree}\DIFdelend \DIFaddbegin \DIFadd{degrees}\DIFaddend ,
+and only return the closest point. It also showcases the ability \DIFdelbegin \DIFdel{of directly
+using }\DIFdelend \DIFaddbegin \DIFadd{to directly
+use }\DIFaddend an EPW file as input for coordinate matching, as epwshiftr can parse the
+geographical information stored in EPW files.
+
+The extracted raw data will be distinguished by six attributes: MIP, GCM,
+climate scenario, output frequency, geographic location (longitude and latitude),
+and climate variables. This makes the post-processing and analysis of raw
+climate change data can be easily realized.
+
+\DIFaddbegin \captionof{code}{Match the global grid points directly using an EPW file and  extract raw GCM data}\label{lst:data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DIFadd{\CommentTok{\# use weather file distributed from}
+\CommentTok{\# EnergyPlus v8.8 as an example}
+\NormalTok{epw }\OtherTok{\textless{}{-}}\NormalTok{ eplusr}\SpecialCharTok{::}\FunctionTok{path\_eplus\_weather}\NormalTok{(}
+  \AttributeTok{ver =} \FloatTok{8.8}\NormalTok{,}
+  \AttributeTok{file =} \StringTok{"USA\_CA\_San.Francisco.Intl.AP.724940\_TMY3.epw"}
+\NormalTok{)}
+}
+
+\DIFadd{\CommentTok{\# extract matched grid coordinates}
+\NormalTok{coord }\OtherTok{\textless{}{-}} \FunctionTok{match\_coord}\NormalTok{(}
+\NormalTok{  epw,}
+}
+
+  \DIFadd{\CommentTok{\# match distance less than 0.5 degrees}
+  \AttributeTok{threshold =} \FunctionTok{list}\NormalTok{(}\AttributeTok{lon =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{lat =} \FloatTok{0.5}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# match at most 3 grid points}
+  \AttributeTok{max\_num =} \DecValTok{3}
+\NormalTok{)}
+}
+
+\DIFadd{\CommentTok{\# extract all data from matched grid points}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{extract\_data}\NormalTok{(coord,}
+  \CommentTok{\# specify the years to extract}
+  \AttributeTok{years =} \FunctionTok{c}\NormalTok{(}\DecValTok{2050}\NormalTok{, }\DecValTok{2080}\NormalTok{)}
+\NormalTok{)}
+}\end{Highlighting}
+\end{Shaded}
+
+\DIFaddend The size of the raw data extracted can be relatively big. For example, based on
+the authors' measurements, it takes about 20G memory to read the raw data of 12
+climate variables from 2020 to 2100 from 4 climate scenarios and 11 GCMs, which
+is often close to, if not greater than, a \DIFdelbegin \DIFdel{normal }\DIFdelend \DIFaddbegin \DIFadd{typical }\DIFaddend PC's memory. For this reason,
+epwshiftr supports storing the original data in the \DIFdelbegin \DIFdel{fst }\DIFdelend \DIFaddbegin \emph{\DIFadd{fst}} \DIFaddend format \citep{mark2022fst}
+with a super large compression ratio, \DIFdelbegin \DIFdel{which greatly reduces }\DIFdelend \DIFaddbegin \DIFadd{greatly reducing }\DIFaddend the content burden
+required for calculation. Still taking the above situation as an example, if the
+data is divided by GCM, the size of a single fst file is only about 50MB, which
+can be easily read and processed by current mainstream home computers.
+
+\hypertarget{generation-of-future-weather-data-using-morphing-statistical-downscaling}{%
+\subsection{Generation of future weather data using morphing statistical downscaling}\label{generation-of-future-weather-data-using-morphing-statistical-downscaling}}
+
+The \emph{Morphing Module} is closely related to the EPW Generation Module and will
+be described together in this section. After obtaining the raw GCM climate
+prediction data, the last step is to generate EPW weather files that can be
+directly used for energy simulation programs like EnergyPlus through the
+Morphing statistical downscaling method. Compared with the time-consuming raw
+data preparation process described above, generating climate files using
+morphing statistical downscaling is relatively simple. The morphing method
+involves calculating the future hourly weather parameter \(x\) by applying a
+stretching factor and/or a shifting factor to the original weather value \(x_0\)
+(see Equation \ref{eq:morph-shift}-\ref{eq:morph-mixed}). It captures the
+average climate change while preserving the physically realistic source weather
+data sequences.
+
+\begin{align}
+\text{Shift:}         \: & x = x_0 + \Delta x_m \label{eq:morph-shift}\\
+\text{Stretch:}       \: & x = \alpha _m x_m    \label{eq:morph-stretch}\\
+\text{Shift+Stretch:} \: & x = x_0 + \Delta x_m + a_m ( x_0 - \langle x_0 \rangle _m ) \label{eq:morph-mixed}
+\end{align}
+
+where \(x_0\) is the weather data for the current hour; \(\Delta x_m\) is the mean
+monthly change in the weather data x obtained from the GCMs; \(\alpha _m\) is the
+stretching factor; and \(\langle x_0 \rangle\) is the monthly mean of the current
+weather data.
+
+Epwshiftr can generate future data for the following 11 weather variables:
+
+\begin{itemize}
+\tightlist
+\item
+  Dry-bulb temperature
+\item
+  Dew-point temperature
+\item
+  Relative humidity
+\item
+  Atmospheric pressure
+\item
+  Horizontal infrared radiation
+\item
+  Total horizontal radiation
+\item
+  Direct normal radiation
+\item
+  Diffuse horizontal radiation
+\item
+  Outdoor wind speed
+\item
+  Total sky cover
+\item
+  Opaque sky cover
+\end{itemize}
+
+\DIFaddbegin \DIFadd{To avoid unrealistic results, the }\emph{\DIFadd{Morphing Module}} \DIFadd{has taken extra data
+validation and calculation steps, including but not limited to:
+}
+
+\begin{itemize}
+\tightlist
+\item
+  \DIFadd{Warnings are generated if there are any missing values in the input EPW and
+  GCM data.
+}\item
+  \DIFadd{Unit conversions between data of EPW and GCM are automatically performed using
+  the units \mbox{%DIFAUXCMD
+\citep{pebesma2016measurement} }\hskip0pt%DIFAUXCMD
+R package, e.g.~all temperature data have
+  been converted to Celsius before calculation.
+}\item
+  \DIFadd{Calculation of dew point temperature is performed based on dry-bulb
+  temperature and relative humidity using the psychrolib \mbox{%DIFAUXCMD
+\citep{meyer2019psychrolib}
+  }\hskip0pt%DIFAUXCMD
+R package.
+}\item
+  \DIFadd{Input values of relative humidity that exceed 100\% will be reset to 100\%.
+}\item
+  \DIFadd{A threshold value is set for the stretch factor (\(\alpha\)), i.e.~monthly-mean
+  fractional change, when performing morphing operations. The default value is
+  set to }\texttt{\DIFadd{3}}\DIFadd{. If the absolute \(\alpha\) exceeds this threshold value, warnings
+  are issued to suggest users further investigate the input data before
+  continuing. Moreover, the morphing method will use the shift factor (\(\Delta x\))
+  to to avoid unrealistic morphed values.
+}\end{itemize}
+
+\DIFadd{Besides the efforts above, the }\emph{\DIFadd{Morphing Module}} \DIFadd{always returns the calculated
+\(\Delta x\) and \(\alpha\) values in dedicated columns, which provides
+opportunities for detailed examination and custom statistical analyses.
+}
+
+\DIFaddend At the same time, when generating EPW files, average processing can also be
+performed based on GCM, output frequency, longitude, latitude, etc.
+
+Listing \ref{lst:epw} demonstrates how to use the \texttt{morphing\_epw} interface from
+the \emph{Morphing Module} and the \texttt{future\_epw} interface from the \emph{EPW Generation
+Module} to perform morphing on the baseline EPW data and raw GCM data \DIFdelbegin \DIFdel{, }\DIFdelend and
+create future EPW files based on the GCM source, climate scenarios and time
+interval. All EPW files will be saved into a \DIFdelbegin \DIFdel{seprate }\DIFdelend \DIFaddbegin \DIFadd{separate }\DIFaddend folder.
+
+\DIFdelbegin %DIFDELCMD < \begin{listing}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Perform morphing and generate future EPWs}}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \captionof{code}{Perform morphing and generate future EPWs}\DIFaddend \label{lst:epw}
+\DIFdelbegin %DIFDELCMD < \includegraphics[width=\columnwidth]{figures/code-epw.png}
+%DIFDELCMD < \end{listing}
+%DIFDELCMD < %%%
+\DIFdelend 
+
+\DIFaddbegin \begin{Shaded}
+\begin{Highlighting}[]
+\DIFadd{\CommentTok{\# perform morphing}
+\NormalTok{morphed }\OtherTok{\textless{}{-}} \FunctionTok{morphing\_epw}\NormalTok{(data,}
+  \CommentTok{\# years of interest}
+  \AttributeTok{years =} \FunctionTok{c}\NormalTok{(}\DecValTok{2050}\NormalTok{, }\DecValTok{2080}\NormalTok{)}
+\NormalTok{)}
+}
+
+\DIFadd{\CommentTok{\# create future EPWs}
+\NormalTok{epws }\OtherTok{\textless{}{-}} \FunctionTok{future\_epw}\NormalTok{(}
+\NormalTok{  morphed,}
+}
+
+  \DIFadd{\CommentTok{\# how to group the output files}
+  \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"source"}\NormalTok{, }\StringTok{"experiment"}\NormalTok{, }\StringTok{"interval"}\NormalTok{),}
+}
+
+  \DIFadd{\CommentTok{\# where to save all generated EPWs}
+  \AttributeTok{dir =} \FunctionTok{tempdir}\NormalTok{(),}
+}
+
+  \DIFadd{\CommentTok{\# create folders for each group}
+  \AttributeTok{separate =} \ConstantTok{TRUE}\NormalTok{,}
+}
+
+  \DIFadd{\CommentTok{\# overwrite existing files}
+  \AttributeTok{overwrite =} \ConstantTok{TRUE}
+\NormalTok{)}
+}\end{Highlighting}
+\end{Shaded}
+
+\DIFadd{Currently, epwshiftr only supports the morphing method. But the }\texttt{\DIFadd{morphing\_epw}}
+\DIFadd{interface provides parameters to modify which factors should be used for each
+meteorological variable, with meaningful defaults value given. For example,
+radiation-related variables are, by default, morphed using the stretch factor,
+avoiding unrealistic positive values at nighttime. The modular design pattern of
+epwshiftr makes it decouple the data structure and the actual extrapolation
+algorithm used. We are happy to explore the feasibility of supporting
+alternative extrapolation algorithms in the future.
+}
+
+\DIFaddend \hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+This paper presents a free, open-source R package called epwshiftr for adapting
+EnergyPlus Weather (EPW) files to incorporate climate change predictions using
+the morphing method. It can utilize the latest CMIP6 ScenarioMIP experiment data
+and automatically process significant amounts of climate change model data
+worldwide. \DIFdelbegin \DIFdel{This }\DIFdelend \DIFaddbegin \DIFadd{We hope this }\DIFaddend tool will significantly save the time and cost of
+obtaining future weather data\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{. It }\DIFaddend thus can support the analysis of future
+building heating and air-conditioning demand, energy consumption, and carbon
+emissions.
+
+%here starts the references
+\bibliography{references.bib}
+\bibliographystyle{template/bs2023}
+
+\end{document}
