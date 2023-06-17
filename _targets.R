@@ -18,7 +18,7 @@ list(
 
     # track revisions using latexdiff
     tar_target(ref_ori, "6c7996eb"),
-    tar_target(ref_1st, "52db17a8"),
+    tar_target(ref_1st, "ee712a3a2"),
     tar_file(file_latexdiff, latexdiff(ref_ori, ref_1st, rmd_paper, "reviews/1st-round-diff.tex")),
     tar_file(pdf_1st_resp_diff, render_diff(rmd_paper, file_latexdiff, ref_ori, ref_1st))
 )

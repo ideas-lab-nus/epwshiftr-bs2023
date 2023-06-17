@@ -68,6 +68,7 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
         )
     ))
 
+    # make sure 'rmd' and 'diff' exists in the Git repo
     if (!file.exists(file.path(dir, rmd))) {
         stop("Failed to locate 'rmd' in the Git working tree.")
     }
@@ -81,7 +82,8 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     if (gert::git_branch_exists("new", repo = dir)) gert::git_branch_delete("new", repo = dir)
     gert::git_branch_create("new", ref_new, checkout = FALSE, repo = dir)
 
-    # extract all file dependencies for both version
+    # checkout 'new' and 'old' to extract all file dependencies for both
+    # versions
     gert::git_branch_checkout("new", repo = dir, force = TRUE)
     deps_new <- rmd_deps(file.path(dir, rmd))
     gert::git_branch_checkout("old", repo = dir, force = TRUE)
@@ -90,7 +92,8 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     # find missing files in new version
     deps_miss <- setdiff(deps_old, deps_new)
 
-    # copy missing files into another temporary folder
+    # copy missing files into another temporary folder while keeping the folder
+    # strucuture
     dir_tmp <- tempfile("latexdiff")
     dir.create(dir_tmp)
     file_tmp <- file.path(dir_tmp, fs::path_rel(deps_miss, dir))
@@ -99,12 +102,18 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     }
     stopifnot(all(file.copy(deps_miss, file_tmp, overwrite = TRUE)))
 
-    # change to newer paper branch and copy missing files back
+    # change to newer paper branch and copy missing files back so that it
+    # contains all files needed to render the diff version
     gert::git_branch_checkout("new", repo = dir, force = TRUE)
     stopifnot(all(file.copy(file_tmp, deps_miss)))
 
-    new_diff <- file.path(fs::path_abs(fs::path_rel(dirname(rmd), diff), file.path(dir, diff)), basename(diff))
+    new_diff <- file.path(
+        # get the directory path where the diff lives in the temporary folder
+        fs::path_abs(fs::path_rel(dirname(rmd), diff), file.path(dir, diff)),
+        basename(diff)
+    )
     stopifnot(file.copy(file.path(dir, diff), new_diff, overwrite = TRUE))
+    fs::file_copy(file.path(dir, diff), new_diff, overwrite = TRUE)
 
     old <- getwd()
     setwd(dirname(new_diff))
