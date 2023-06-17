@@ -49,7 +49,7 @@ render_rmd <- function(rmd, envir = parent.frame()) {
     # read yaml header
     yaml <- rmarkdown::yaml_front_matter(rmd)
 
-    out <- rmarkdown::render(rmd, "all", envir = envir)
+    out <- rmarkdown::render(rmd, "all", envir = envir, quiet = TRUE)
 
     if (unlist(lapply(yaml$output, .subset, "keep_tex"))) {
         out <- c(out, paste0(tools::file_path_sans_ext(out[1]), ".tex"))
