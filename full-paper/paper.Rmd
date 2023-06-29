@@ -57,8 +57,22 @@ knitr::opts_chunk$set(
 hooks <- knitr::knit_hooks$get("source")
 knitr::knit_hooks$set(source = function(x, options) {
   x <- hooks(x, options)
-  x <- ifelse(!is.null(options$code.ref), paste0("\\label{", options$code.ref, "}", x), x)
-  ifelse(!is.null(options$code.cap), paste0("\\captionof{code}{", options$code.cap, "}", x), x)
+  if (!is.null(options$code.ref)) {
+    x <- paste0("\\label{", options$code.ref, "}", x)
+  }
+  if (!is.null(options$code.cap)) {
+    x <- paste0(c(
+      "```{=latex}\n",
+      "\\begin{Code}\n",
+      "\\caption{", options$code.cap, "}\n",
+      "```\n",
+      x,
+      "```{=latex}\n",
+      "\\end{Code}\n",
+      "```"
+    ))
+  }
+  x
 })
 ```
 

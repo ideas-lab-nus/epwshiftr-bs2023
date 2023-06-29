@@ -47,12 +47,15 @@ columnsep=0.8cm]{geometry}
 \floatsetup[table]{capposition=top}
 
 % add caption for codes
-\DeclareNewFloatType{code}{placement=h, fileext=code, name=Listing}
-\captionsetup[code]{aboveskip=10pt, belowskip=1pt}
+\newenvironment{Code}{\captionsetup{type=code}}{}
+\DeclareNewFloatType{Code}{placement=h, fileext=code, name=Listing}
+\DeclareFloatVCode{beforefloat}{\vspace{2pt}}
+\DeclareFloatVCode{afterfloat}{\vspace{-10pt}}
+\floatsetup[Code]{capposition=top, captionskip=1pt, precode=beforefloat, postcode=afterfloat}
 
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
     commandchars=\\\{\},
-    fontsize=\normalsize,
+    fontsize=\small,
     numbers=left,
     numbersep=5pt
 }
