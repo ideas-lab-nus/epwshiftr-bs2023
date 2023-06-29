@@ -38,10 +38,10 @@ output:
     citation_package: natbib
     keep_tex: true
 
-date: "2023-05-27"
+date: "2023-06-29"
 id: 1612
 
-blind: true
+blind: false
 ---
 
 ```{r setup, include = FALSE}
@@ -564,5 +564,15 @@ worldwide. We hope this tool will significantly save the time and cost of
 obtaining future weather data. It thus can support the analysis of future
 building heating and air-conditioning demand, energy consumption, and carbon
 emissions.
+
+# Acknowledgements
+
+This study was funded by Research Foundation of Chongqing University of Science
+and Technology (project No. ckrc2021073) and the 111 project (Grant No. B13041),
+The authors also thank the support from the Berkeley Education Alliance for
+Research in Singapore (BEARS) for the Singapore-Berkeley Building Efficiency and
+Sustainability in the Tropics (SinBerBEST) Program and thank Prof. Adrian Chong
+(National University of Singapore) for his scientific input during epwshiftr
+development.
 
 # References {-}
