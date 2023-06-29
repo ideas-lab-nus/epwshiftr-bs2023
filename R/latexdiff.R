@@ -58,15 +58,7 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     }
 
     # create a temporary folder to store data
-    dir <- tempfile("latexdiff")
-    dir.create(dir)
-
-    # copy whole working directory to the temporary folder
-    stopifnot(all(
-        file.copy(list.files(all.files = TRUE, no.. = TRUE), dir,
-            recursive = TRUE, overwrite = TRUE
-        )
-    ))
+    dir <- temp_store("latexdiff")
 
     # make sure 'rmd' and 'diff' exists in the Git repo
     if (!file.exists(file.path(dir, rmd))) {
@@ -100,20 +92,19 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     if (any(!dir.exists(dirs_file_tmp <- unique(dirname(file_tmp))))) {
         dir.create(dirs_file_tmp[!dir.exists(dirs_file_tmp)], recursive = TRUE)
     }
-    stopifnot(all(file.copy(deps_miss, file_tmp, overwrite = TRUE)))
+    file_copy(deps_miss, file_tmp)
 
     # change to newer paper branch and copy missing files back so that it
     # contains all files needed to render the diff version
     gert::git_branch_checkout("new", repo = dir, force = TRUE)
-    stopifnot(all(file.copy(file_tmp, deps_miss)))
+    file_copy(file_tmp, deps_miss)
 
     new_diff <- file.path(
         # get the directory path where the diff lives in the temporary folder
         fs::path_abs(fs::path_rel(dirname(rmd), diff), file.path(dir, diff)),
         basename(diff)
     )
-    stopifnot(file.copy(file.path(dir, diff), new_diff, overwrite = TRUE))
-    fs::file_copy(file.path(dir, diff), new_diff, overwrite = TRUE)
+    file_copy(file.path(dir, diff), new_diff)
 
     old <- getwd()
     setwd(dirname(new_diff))
@@ -122,7 +113,7 @@ render_diff <- function(rmd, diff, ref_old, ref_new) {
     on.exit(setwd(old), add = TRUE)
 
     new_out <- fs::path_rel(file.path(dirname(diff), out))
-    stopifnot(file.copy(file.path(dirname(new_diff), out), new_out, overwrite = TRUE))
+    file_copy(file.path(dirname(new_diff), out), new_out)
 
     unlink(c(dir, dir_tmp), recursive = TRUE)
     new_out
