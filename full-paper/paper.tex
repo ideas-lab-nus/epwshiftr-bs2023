@@ -47,12 +47,15 @@ columnsep=0.8cm]{geometry}
 \floatsetup[table]{capposition=top}
 
 % add caption for codes
-\DeclareNewFloatType{code}{placement=h, fileext=code, name=Listing}
-\captionsetup[code]{aboveskip=10pt, belowskip=1pt}
+\newenvironment{Code}{\captionsetup{type=code}}{}
+\DeclareNewFloatType{Code}{placement=h, fileext=code, name=Listing}
+\DeclareFloatVCode{beforefloat}{\vspace{2pt}}
+\DeclareFloatVCode{afterfloat}{\vspace{-10pt}}
+\floatsetup[Code]{capposition=top, captionskip=1pt, precode=beforefloat, postcode=afterfloat}
 
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
     commandchars=\\\{\},
-    fontsize=\normalsize,
+    fontsize=\small,
     numbers=left,
     numbersep=5pt
 }
@@ -126,10 +129,10 @@ building performance simulation for future adaptation and mitigation\\										
 %%% Change or delete text before "\\" on the lines below to keep the layout but don't remove the "\\"
 %%% Do not exceed more than 6 lines for authors and affiliations
 \author{																																														% Line 3
-    \phantom{Line 4}\\
-  \phantom{Line 5}\\
-  \phantom{Line 6}\\
-  \phantom{Line 7}\\
+     Hongyuan Jia\textsuperscript{1} ,  Baisong Ning\textsuperscript{2} \\
+  \parbox{\linewidth}{\centering%
+     \textsuperscript{1}Chongqing University of Science and Technology, Chongqing, 401331, People's Republic of China \\ \textsuperscript{2}Zhengzhou University, Zhengzhou, Henan Province, 450001, People's Republic of China \\
+  }
   \phantom{Line 8}\\
   \phantom{Line 9}
   } 																																									% Line 9
@@ -300,13 +303,18 @@ open-source, and the source code is published on GitHub\footnote{epwshiftr GitHu
   \url{https://github.com/ideas-lab-nus/epwshiftr}}. Epwshiftr can be easily installed
 via a single command as shown in Listing \ref{lst:install}.
 
-\captionof{code}{Install epwshiftr}\label{lst:install}
+\begin{Code}
+\caption{Install epwshiftr}
+
+\label{lst:install}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{install.packages}\NormalTok{(}\StringTok{"epwshiftr"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\end{Code}
 
 Figure \ref{fig:workflow} shows the primary process of using epwshiftr to
 generate EPW files for future weather. It consists of five modules, including:
@@ -383,7 +391,10 @@ AWI-CM-1-1-MR GCM first run (r1i1p1f1) under SSP585 climate scenario from the
 ScenarioMIP activity for the year 2050 and 2080. Also, an output index file
 named ``cmip6\_index.csv'' will be saved.
 
-\captionof{code}{Query ScenarioMIP outputs using the Query Module}\label{lst:index}
+\begin{Code}
+\caption{Query ScenarioMIP outputs using the Query Module}
+
+\label{lst:index}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -415,6 +426,8 @@ named ``cmip6\_index.csv'' will be saved.
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\end{Code}
 
 \hypertarget{gcm-raw-output-data-management}{%
 \subsection{GCM raw output data management}\label{gcm-raw-output-data-management}}
@@ -454,7 +467,10 @@ output index generated using the \emph{Query Module.} This step is necessary as 
 the loaded files against the index so that epwshiftr knows which case is
 complete and can be used for the next step.
 
-\captionof{code}{Summarize the GCM NetCDF files based on the output index}\label{lst:db}
+\begin{Code}
+\caption{Summarize the GCM NetCDF files based on the output index}
+
+\label{lst:db}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -470,6 +486,8 @@ complete and can be used for the next step.
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\end{Code}
 
 \hypertarget{extraction-of-raw-climate-change-data-based-on-geographic-location}{%
 \subsection{Extraction of raw climate change data based on geographic location}\label{extraction-of-raw-climate-change-data-based-on-geographic-location}}
@@ -503,7 +521,10 @@ climate scenario, output frequency, geographic location (longitude and latitude)
 and climate variables. This makes the post-processing and analysis of raw
 climate change data can be easily realized.
 
-\captionof{code}{Match the global grid points directly using an EPW file and  extract raw GCM data}\label{lst:data}
+\begin{Code}
+\caption{Match the global grid points directly using an EPW file and  extract raw GCM data}
+
+\label{lst:data}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -532,6 +553,8 @@ climate change data can be easily realized.
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\end{Code}
 
 The size of the raw data extracted can be relatively big. For example, based on
 the authors' measurements, it takes about 20G memory to read the raw data of 12
@@ -638,7 +661,10 @@ Module} to perform morphing on the baseline EPW data and raw GCM data and
 create future EPW files based on the GCM source, climate scenarios and time
 interval. All EPW files will be saved into a separate folder.
 
-\captionof{code}{Perform morphing and generate future EPWs}\label{lst:epw}
+\begin{Code}
+\caption{Perform morphing and generate future EPWs}
+
+\label{lst:epw}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -667,6 +693,8 @@ interval. All EPW files will be saved into a separate folder.
 \end{Highlighting}
 \end{Shaded}
 
+\end{Code}
+
 Currently, epwshiftr only supports the morphing method. But the \texttt{morphing\_epw}
 interface provides parameters to modify which factors should be used for each
 meteorological variable, with meaningful defaults value given. For example,
@@ -687,6 +715,17 @@ worldwide. We hope this tool will significantly save the time and cost of
 obtaining future weather data. It thus can support the analysis of future
 building heating and air-conditioning demand, energy consumption, and carbon
 emissions.
+
+\hypertarget{acknowledgements}{%
+\section{Acknowledgements}\label{acknowledgements}}
+
+This study was funded by Research Foundation of Chongqing University of Science
+and Technology (project No.~ckrc2021073) and the 111 project (Grant No.~B13041),
+The authors also thank the support from the Berkeley Education Alliance for
+Research in Singapore (BEARS) for the Singapore-Berkeley Building Efficiency and
+Sustainability in the Tropics (SinBerBEST) Program and thank Prof.~Adrian Chong
+(National University of Singapore) for his scientific input during epwshiftr
+development.
 
 %here starts the references
 \bibliography{references.bib}

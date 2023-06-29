@@ -9,12 +9,14 @@ list(
     # commit SHA of the original paper
     tar_target(ref_ori, "6c7996eb"),
     # commit SHA of the paper after response to 1st round review
-    tar_target(ref_1st, "ee712a3a2"),
+    tar_target(ref_1st, "ee712a3a"),
+    # commit SHA of the final paper, NULL for current commit
+    tar_target(ref_final, NULL),
 
     # render full paper
     tar_file(rmd_paper, file.path(dir_paper, "paper.Rmd")),
     tar_file(deps_paper, rmd_deps(rmd_paper)),
-    tar_change(pdf_paper, render_rmd(rmd_paper), deps_paper, format = "file"),
+    tar_change(pdf_paper, render_rmd(rmd_paper, ref_final), deps_paper, format = "file"),
 
     # render 1st round response to reviewer comments
     tar_file(rmd_1st_resp, file.path(dir_paper, "reviews", "1st-round-resp.Rmd")),
