@@ -25,5 +25,8 @@ list(
 
     # track revisions using latexdiff
     tar_file(file_latexdiff, latexdiff(ref_ori, ref_1st, rmd_paper, "reviews/1st-round-diff.tex")),
-    tar_file(pdf_1st_resp_diff, render_diff(rmd_paper, file_latexdiff, ref_ori, ref_1st))
+    tar_file(pdf_1st_resp_diff, render_diff(rmd_paper, file_latexdiff, ref_ori, ref_1st)),
+
+    # pack the final tex bundle for submission
+    tar_file(zip_paper, pack_tex(pdf_paper[tools::file_ext(pdf_paper) == "tex"], deps_paper))
 )
