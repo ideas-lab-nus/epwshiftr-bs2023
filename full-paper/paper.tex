@@ -129,9 +129,9 @@ building performance simulation for future adaptation and mitigation\\										
 %%% Change or delete text before "\\" on the lines below to keep the layout but don't remove the "\\"
 %%% Do not exceed more than 6 lines for authors and affiliations
 \author{																																														% Line 3
-     Hongyuan Jia\textsuperscript{1} ,  Baisong Ning\textsuperscript{2} \\
+     Hongyuan Jia\textsuperscript{1} ,  Adrian Chong\textsuperscript{2} ,  Baisong Ning\textsuperscript{3} \\
   \parbox{\linewidth}{\centering%
-     \textsuperscript{1}Chongqing University of Science and Technology, Chongqing, 401331, People's Republic of China \\ \textsuperscript{2}Zhengzhou University, Zhengzhou, Henan Province, 450001, People's Republic of China \\
+     \textsuperscript{1}School of Civil Engineering and Architecture, Chongqing University of Science and Technology, Chongqing, 401331, People's Republic of China \\ \textsuperscript{2}Department of the Built Environment, College of Design and Engineering, National University of Singapore, 117566, Singapore \\ \textsuperscript{3}School of Civil Engineering, Zhengzhou University, Zhengzhou, Henan Province, 450001, People's Republic of China \\
   }
   \phantom{Line 8}\\
   \phantom{Line 9}
@@ -159,8 +159,7 @@ burden of the cumbersome data preparation process as much as possible while
 providing user-friendly and flexible ways to create future EPWs for worldwide
 locations.
 
-\hypertarget{highlights}{%
-\section{Highlights}\label{highlights}}
+\section{Highlights}\label{highlights}
 
 \begin{itemize}
 \tightlist
@@ -175,8 +174,7 @@ locations.
   It can generate future weather data for 11 meteorological variables.
 \end{itemize}
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 Building energy simulation (BES) has become increasingly applied to assess
 building performance under climate change and yield a more sustainable and
@@ -253,8 +251,7 @@ broad pool of ready-to-use methods available for customized statistical
 analysis. Most computational-intensive processes have been designed to run in
 parallel for speed-up.
 
-\hypertarget{climate-scenarios-in-cmip6-scenariomip}{%
-\section{Climate scenarios in CMIP6 ScenarioMIP}\label{climate-scenarios-in-cmip6-scenariomip}}
+\section{Climate scenarios in CMIP6 ScenarioMIP}\label{climate-scenarios-in-cmip6-scenariomip}
 
 CMIP6 provides climate change simulation and forecast data and forms the
 scientific basis of the IPCC assessment report. It approved 23 Model Comparison
@@ -292,8 +289,7 @@ Figure \ref{fig:ssp}.
 \includegraphics[width=0.7\textwidth]{figures/ssp-hires} \caption{Scenario design matrix for future climate prediction based on SSP  and RCP in ScenarioMIP\citep{oneill2016scenario}}\label{fig:ssp}
 \end{figure*}
 
-\hypertarget{epwshiftr-a-free-open-source-future-weather-generation-tool-using-cmip6-scenariomip-data}{%
-\section{\texorpdfstring{\texttt{epwshiftr}: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}{epwshiftr: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}}\label{epwshiftr-a-free-open-source-future-weather-generation-tool-using-cmip6-scenariomip-data}}
+\section{\texorpdfstring{\texttt{epwshiftr}: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}{epwshiftr: a free, open-source future weather generation tool using CMIP6 ScenarioMIP data}}\label{epwshiftr-a-free-open-source-future-weather-generation-tool-using-cmip6-scenariomip-data}
 
 Epwshiftr is developed using R \citep{RCoreTeam2019} language and distributed
 using CRAN (Comprehensive R Archive Network)\footnote{epwshiftr CRAN link:
@@ -358,8 +354,7 @@ future weather data is not the focus of this paper. The following sections will
 explain the implementation principle and technical details of epwshiftr by
 module.
 
-\hypertarget{query-scenariomip-gcm-output-using-esgf}{%
-\subsection{Query ScenarioMIP GCM output using ESGF}\label{query-scenariomip-gcm-output-using-esgf}}
+\subsection{Query ScenarioMIP GCM output using ESGF}\label{query-scenariomip-gcm-output-using-esgf}
 
 CMIP6 is still an ongoing program in which global climatologists share, analyze,
 and compare simulation results from the latest GCMs. All GCM outputs in CMIP6
@@ -429,8 +424,7 @@ named ``cmip6\_index.csv'' will be saved.
 
 \end{Code}
 
-\hypertarget{gcm-raw-output-data-management}{%
-\subsection{GCM raw output data management}\label{gcm-raw-output-data-management}}
+\subsection{GCM raw output data management}\label{gcm-raw-output-data-management}
 
 As mentioned above, the size of NetCDF files can easily reach hundreds of GB or
 even TB levels for multiple combinations of emission scenarios and GCMs, as
@@ -489,8 +483,7 @@ complete and can be used for the next step.
 
 \end{Code}
 
-\hypertarget{extraction-of-raw-climate-change-data-based-on-geographic-location}{%
-\subsection{Extraction of raw climate change data based on geographic location}\label{extraction-of-raw-climate-change-data-based-on-geographic-location}}
+\subsection{Extraction of raw climate change data based on geographic location}\label{extraction-of-raw-climate-change-data-based-on-geographic-location}
 
 When the integrity check has been passed, the next step is to extract the raw
 time-series data from GCM NetCDF output files. NetCDF stores data as a
@@ -566,8 +559,7 @@ required for calculation. Still taking the above situation as an example, if the
 data is divided by GCM, the size of a single fst file is only about 50MB, which
 can be easily read and processed by current mainstream home computers.
 
-\hypertarget{generation-of-future-weather-data-using-morphing-statistical-downscaling}{%
-\subsection{Generation of future weather data using morphing statistical downscaling}\label{generation-of-future-weather-data-using-morphing-statistical-downscaling}}
+\subsection{Generation of future weather data using morphing statistical downscaling}\label{generation-of-future-weather-data-using-morphing-statistical-downscaling}
 
 The \emph{Morphing Module} is closely related to the EPW Generation Module and will
 be described together in this section. After obtaining the raw GCM climate
@@ -704,8 +696,7 @@ epwshiftr makes it decouple the data structure and the actual extrapolation
 algorithm used. We are happy to explore the feasibility of supporting
 alternative extrapolation algorithms in the future.
 
-\hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
+\section{Conclusion}\label{conclusion}
 
 This paper presents a free, open-source R package called epwshiftr for adapting
 EnergyPlus Weather (EPW) files to incorporate climate change predictions using
@@ -716,16 +707,13 @@ obtaining future weather data. It thus can support the analysis of future
 building heating and air-conditioning demand, energy consumption, and carbon
 emissions.
 
-\hypertarget{acknowledgements}{%
-\section{Acknowledgements}\label{acknowledgements}}
+\section{Acknowledgements}\label{acknowledgements}
 
 This study was funded by Research Foundation of Chongqing University of Science
 and Technology (project No.~ckrc2021073) and the 111 project (Grant No.~B13041),
 The authors also thank the support from the Berkeley Education Alliance for
 Research in Singapore (BEARS) for the Singapore-Berkeley Building Efficiency and
-Sustainability in the Tropics (SinBerBEST) Program and thank Prof.~Adrian Chong
-(National University of Singapore) for his scientific input during epwshiftr
-development.
+Sustainability in the Tropics (SinBerBEST) Program.
 
 %here starts the references
 \bibliography{references.bib}

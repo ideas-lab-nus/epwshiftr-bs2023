@@ -8,12 +8,17 @@ author:
     order: 1
     email: hongyuanjia@cqust.edu.cn
     affiliation: |
-        Chongqing University of Science and Technology, Chongqing, 401331, People's Republic of China
-  - name: Baisong Ning
+        School of Civil Engineering and Architecture, Chongqing University of Science and Technology, Chongqing, 401331, People's Republic of China
+  - name: Adrian Chong
     order: 2
+    email: adrian.chong@nus.edu.sg
+    affiliation: |
+        Department of the Built Environment, College of Design and Engineering, National University of Singapore, 117566, Singapore
+  - name: Baisong Ning
+    order: 3
     email: bsning@foxmail.com
     affiliation: |
-        Zhengzhou University, Zhengzhou, Henan Province, 450001, People's Republic of China
+        School of Civil Engineering, Zhengzhou University, Zhengzhou, Henan Province, 450001, People's Republic of China
 
 abstract: |
   Future weather data is a prerequisite for accessing the impacts of climate
@@ -585,8 +590,6 @@ This study was funded by Research Foundation of Chongqing University of Science
 and Technology (project No. ckrc2021073) and the 111 project (Grant No. B13041),
 The authors also thank the support from the Berkeley Education Alliance for
 Research in Singapore (BEARS) for the Singapore-Berkeley Building Efficiency and
-Sustainability in the Tropics (SinBerBEST) Program and thank Prof. Adrian Chong
-(National University of Singapore) for his scientific input during epwshiftr
-development.
+Sustainability in the Tropics (SinBerBEST) Program.
 
 # References {-}
