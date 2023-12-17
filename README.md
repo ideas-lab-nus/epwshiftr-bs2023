@@ -34,8 +34,8 @@ Please cite the actual conference paper, use:
 ├── renv.lock                   # File describing the packages for building the paper
 │
 ├── abstract
-│   ├── abstract.R              # The abstract submitted to the conference
-│   └── reviews.R               # Reviewer comments on the abstract
+│   ├── abstract.md             # The abstract submitted to the conference
+│   └── reviews.md              # Reviewer comments on the abstract
 │
 ├── full-paper
 │   ├── template                # LaTeX template (for RMarkdown integration) for conference paper and response to reviewers
