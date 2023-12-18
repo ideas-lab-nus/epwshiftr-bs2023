@@ -2,14 +2,26 @@
 
 This repository contains the research compendium for our paper:
 
-    Jia, Hongyuan, Chong, Adrian, Ning, Baisong, 2023. Epwshiftr: incorporating open data of climate change prediction into building performance simulation for future adaptation and mitigation, in: Proceedings of Building Simulation 2023: 18th Conference of IBPSA, Building Simulation. Presented at the Building Simulation 2023, IBPSA, Shanghai, China, pp. 3201–3207. https://doi.org/10.26868/25222708.2023.1612
+    Jia, Hongyuan, Chong, Adrian, Ning, Baisong, 2023.
+    Epwshiftr: incorporating open data of climate change prediction into building performance simulation for future adaptation and mitigation,
+    in: Proceedings of Building Simulation 2023: 18th Conference of IBPSA, Building Simulation.
+    Presented at the Building Simulation 2023, IBPSA, Shanghai, China, pp. 3201–3207.
+    https://doi.org/10.26868/25222708.2023.1612
 
 The compendium includes all the data and code needed to reproduce the analysis,
 figures and text associated with the publication.
 
-# Citation
+# How to cite
 
-Please cite the actual conference paper, use:
+To cite epwshiftr in publications use:
+
+    Jia, Hongyuan, Chong, Adrian, Ning, Baisong, 2023.
+    Epwshiftr: incorporating open data of climate change prediction into building performance simulation for future adaptation and mitigation,
+    in: Proceedings of Building Simulation 2023: 18th Conference of IBPSA, Building Simulation.
+    Presented at the Building Simulation 2023, IBPSA, Shanghai, China, pp. 3201–3207.
+    https://doi.org/10.26868/25222708.2023.1612
+
+A BibTeX entry for LaTeX users is:
 
 ```bibtex
 @inproceedings{jia2023epwshiftr,
