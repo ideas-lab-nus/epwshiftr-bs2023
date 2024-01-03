@@ -108,7 +108,7 @@ year (TMY). Morphing can capture the average future weather conditions from GCM
 while preserving historical weather sequences. It requires low computational
 power, making it possible to create many weather files from worldwide locations.
 However, morphing may under- or overestimate climate change impacts because of
-the lacking of ability to capture future extreme weather conditions and
+the lack of ability to capture future extreme weather conditions and
 potential differences in the reference time frame of the TMY and GCM data
 [@moazami2019impacts].
 Moreover, careful consideration should be given to morphing when modifying
@@ -122,7 +122,7 @@ cover worldwide locations [@jentsch2008climate; @troup2016morphing;
 @dickinson2016generating; @yassaghi2019overview]. Currently,
 CCWorldWeatherGen[@jentsch2013transforming], WeatherShift
 [@dickinson2016generating], and Meteonorm [@remund2020meteonorm] are three
-future weather generators widely used in literature. CCWorldWeatherGen provides
+future weather generators widely used in the literature. CCWorldWeatherGen provides
 a graphical interface based on Microsoft Excel to generate weather files in EPW
 format supported by EnergyPlus directly. However, it is based on the A2 climate
 scenario from the IPCC Third Assessment Report (TAR) published in 2001. Moreover,
@@ -131,7 +131,7 @@ WeatherShift and Meteonorm also use morphing to generate EPW files for future
 climate. They consider two representative concentration pathway (RCP) emission
 scenarios, i.e., RCP4.5 and RCP8.5, from the 2014 IPCC Fifth Climate Change
 Assessment Report (AR5). At the same time, both are commercial products, and the
-weather data under a single climate scenario often cost hundreds of dollars.
+weather data under a single climate scenario often costs hundreds of dollars.
 
 Currently, the CMIP project is in its sixth phase (CMIP6), which has developed
 new emission scenarios that have a similar range as the CMIP5, but fill critical
@@ -279,13 +279,13 @@ dimensions.
 Since each NetCDF file contains data of a complete global grid, the size of the
 monthly global surface temperature forecast data for the next 20 years under a
 single climate scenario can reach more than 1 GB. The CMIP6 ScenarioMIP contains
-dozens of different GCMs, and the total size of all output files will get more
+dozens of different GCMs, and the total size of all output files will be more
 than 10 TB, making it impossible to download all of them for analysis.
 
 The *Query Module* provides an interface utilizing the RESTful API provided by
 ESGF. It thus is capable of querying all CMIP6 GCM outputs based on various
 conditions, providing download links of NetCDF files. The query result will be
-processed into a data frame that contains 22 metadata that describes each
+processed into a data frame that contains 22 metadata describing each
 output. Also, an output index is generated based on the query to
 check the data integrity before extracting climate change data.
 
@@ -520,7 +520,7 @@ validation and calculation steps, including but not limited to:
   set to `3`. If the absolute $\alpha$ exceeds this threshold value, warnings
   are issued to suggest users further investigate the input data before
   continuing. Moreover, the morphing method will use the shift factor ($\Delta x$)
-  to to avoid unrealistic morphed values.
+  to avoid unrealistic morphed values.
 
 Besides the efforts above, the *Morphing Module* always returns the calculated
 $\Delta x$ and $\alpha$ values in dedicated columns, which provides
@@ -566,7 +566,7 @@ epws <- future_epw(
 
 Currently, epwshiftr only supports the morphing method. But the `morphing_epw`
 interface provides parameters to modify which factors should be used for each
-meteorological variable, with meaningful defaults value given. For example,
+meteorological variable, with meaningful default values given. For example,
 radiation-related variables are, by default, morphed using the stretch factor,
 avoiding unrealistic positive values at nighttime. The modular design pattern of
 epwshiftr makes it decouple the data structure and the actual extrapolation
@@ -586,8 +586,8 @@ emissions.
 
 # Acknowledgements
 
-This study was funded by Research Foundation of Chongqing University of Science
-and Technology (project No. ckrc2021073) and the 111 project (Grant No. B13041),
+This study was funded by the Research Foundation of Chongqing University of Science
+and Technology (project No. ckrc2021073) and the 111 project (Grant No. B13041).
 The authors also thank the support from the Berkeley Education Alliance for
 Research in Singapore (BEARS) for the Singapore-Berkeley Building Efficiency and
 Sustainability in the Tropics (SinBerBEST) Program.
